@@ -7,7 +7,7 @@ import java.util.List;
 public class StringSplitter {
 
     /**
-     * Splits given string applying all delimeters to it. Keeps order of result substrings as in source string.
+     * Splits given string applying all delimeters to it. Keeps order of resultult substrings as in source string.
      *
      * @param source source string
      * @param delimiters collection of delimiter strings
@@ -15,32 +15,32 @@ public class StringSplitter {
      */
     public List<String> splitByDelimiters(String source, Collection<String> delimiters) {
         int i=0;
-        List<String> strs = new ArrayList<>();
-        List<String> tempstrs = new ArrayList<>();
-        List<String> res = new ArrayList<>();
+        List<String> strs;
+        List<String> temp = new ArrayList<>();
+        List<String> result = new ArrayList<>();
         for (String d:
                 delimiters) {
             if (i==0){
                 strs = List.of(source.split(d));
                 i++;
-                res.addAll(strs);
+                result.addAll(strs);
             }
             else{
-                tempstrs.clear();
+                temp.clear();
                 for (String s:
-                        res) {
+                        result) {
                     for (String m:
                             s.split(d)) {
                         if (!m.equals("")){
-                            tempstrs.add(m);
+                            temp.add(m);
                         }
                     }
                 }
-                res.clear();
-                res.addAll(tempstrs);
+                result.clear();
+                result.addAll(temp);
             }
         }
-        return res;
+        return result;
 
     }
 }

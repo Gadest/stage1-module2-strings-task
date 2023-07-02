@@ -25,8 +25,6 @@ public class MethodParser {
     public MethodSignature parseFunction(String signatureString) {
         List<String> str;
         MethodSignature methodSignature;
-String left;
-String right;
         if (signatureString.lastIndexOf("(")+1==signatureString.lastIndexOf(")")){
             signatureString = signatureString.replace("("," ");
             signatureString = signatureString.replace(")"," ");
@@ -37,9 +35,6 @@ String right;
         }
         else {
             List<MethodSignature.Argument> arguments = new ArrayList<>();
-           /* str = List.of(signatureString.split("[(]"));
-            left =str.get(0);
-            right = str.get(1);*/
             StringSplitter splitter = new StringSplitter();
             signatureString = signatureString.replace("("," ");
             signatureString = signatureString.replace(")"," ");
@@ -66,14 +61,7 @@ String right;
                 methodSignature = new MethodSignature(name,arguments);
                 methodSignature.setReturnType(type);
             }
-          /*  right.replace(")"," ");*/
-    /*        temp = str.get(1).replace(")", " ");*/
-           /* str.set(1, temp);*/
-        /*    String s = signatureString.replaceAll(",", " ");*/
-            /*temp = List.of(str.get(1).split("[)]"));*/
-            /* str.set(1,temp.get(0));*/
         }
         return methodSignature;
-        /*     throw new UnsupportedOperationException("You should implement this method.");*/
     }
 }
