@@ -1,5 +1,8 @@
 package com.epam.mjc;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class MethodParser {
 
     /**
@@ -20,6 +23,57 @@ public class MethodParser {
      * @return {@link MethodSignature} object filled with parsed values from source string
      */
     public MethodSignature parseFunction(String signatureString) {
-        throw new UnsupportedOperationException("You should implement this method.");
+        List<String> str;
+        MethodSignature methodSignature;
+String left;
+String right;
+        if (signatureString.lastIndexOf("(")+1==signatureString.lastIndexOf(")")){
+            signatureString = signatureString.replace("("," ");
+            signatureString = signatureString.replace(")"," ");
+            str = List.of(signatureString.split(" "));
+            methodSignature = new MethodSignature(str.get(2));
+            methodSignature.setReturnType(str.get(1));
+            methodSignature.setAccessModifier(str.get(0));
+        }
+        else {
+            List<MethodSignature.Argument> arguments = new ArrayList<>();
+           /* str = List.of(signatureString.split("[(]"));
+            left =str.get(0);
+            right = str.get(1);*/
+            StringSplitter splitter = new StringSplitter();
+            signatureString = signatureString.replace("("," ");
+            signatureString = signatureString.replace(")"," ");
+            str = splitter.splitByDelimiters(signatureString, List.of(new String[]{",", " "}));
+            if (str.get(0).equals("private")||str.get(0).equals("public")||str.get(0).equals("protected")){
+                String name = str.get(2);
+                String type =str.get(1);
+                String modifier = str.get(0);
+                for (int i=0;i<3;i++) str.remove(0);
+                for (int i = 0;i<str.size();i=i+2){
+                    arguments.add(new MethodSignature.Argument(str.get(i),str.get(i+1)));
+                }
+                methodSignature = new MethodSignature(name,arguments);
+                methodSignature.setReturnType(type);
+                methodSignature.setAccessModifier(modifier);
+            }
+            else {
+                String name = str.get(1);
+                String type =str.get(0);
+                for (int i=0;i<2;i++) str.remove(0);
+                for (int i = 0;i<str.size();i=i+2){
+                    arguments.add(new MethodSignature.Argument(str.get(i),str.get(i+1)));
+                }
+                methodSignature = new MethodSignature(name,arguments);
+                methodSignature.setReturnType(type);
+            }
+          /*  right.replace(")"," ");*/
+    /*        temp = str.get(1).replace(")", " ");*/
+           /* str.set(1, temp);*/
+        /*    String s = signatureString.replaceAll(",", " ");*/
+            /*temp = List.of(str.get(1).split("[)]"));*/
+            /* str.set(1,temp.get(0));*/
+        }
+        return methodSignature;
+        /*     throw new UnsupportedOperationException("You should implement this method.");*/
     }
 }
